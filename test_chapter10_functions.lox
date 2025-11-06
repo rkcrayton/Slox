@@ -1,0 +1,193 @@
+// CHAPTER 10: FUNCTIONS TEST
+// Tests function declarations, calls, returns, and closures
+
+print "=== CHAPTER 10: FUNCTIONS ===";
+print "";
+
+// Simple function
+print "1. Simple Function:";
+fun greet(name) {
+  print "Hello, " + name + "!";
+}
+greet("World");
+print "";
+
+// Function with return
+print "2. Function with Return:";
+fun add(a, b) {
+  return a + b;
+}
+print add(5, 3);
+print "";
+
+// Function with multiple parameters
+print "3. Multiple Parameters:";
+fun multiply(a, b, c) {
+  return a * b * c;
+}
+print multiply(2, 3, 4);
+print "";
+
+// Function with no parameters
+print "4. No Parameters:";
+fun sayHello() {
+  print "Hello!";
+}
+sayHello();
+print "";
+
+// Early return
+print "5. Early Return:";
+fun max(a, b) {
+  if (a > b) return a;
+  return b;
+}
+print max(10, 5);
+print max(3, 8);
+print "";
+
+// Recursive function
+print "6. Recursive Function:";
+fun countdown(n) {
+  if (n > 0) {
+    print n;
+    countdown(n - 1);
+  }
+}
+countdown(5);
+print "";
+
+// Fibonacci
+print "7. Fibonacci:";
+fun fib(n) {
+  if (n <= 1) return n;
+  return fib(n - 2) + fib(n - 1);
+}
+for (var i = 0; i < 8; i = i + 1) {
+  print fib(i);
+}
+print "";
+
+// Closure - basic
+print "8. Basic Closure:";
+fun makeGreeter(greeting) {
+  fun greet(name) {
+    print greeting + ", " + name + "!";
+  }
+  return greet;
+}
+var sayHi = makeGreeter("Hi");
+var sayHello = makeGreeter("Hello");
+sayHi("Alice");
+sayHello("Bob");
+print "";
+
+// Closure - counter
+print "9. Closure - Counter:";
+fun makeCounter() {
+  var count = 0;
+  fun counter() {
+    count = count + 1;
+    return count;
+  }
+  return counter;
+}
+var counter1 = makeCounter();
+var counter2 = makeCounter();
+print counter1();
+print counter1();
+print counter2();
+print counter1();
+print "";
+
+// Closure - modifying captured variable
+print "10. Closure - Modifying Captured Variable:";
+fun makeAccumulator() {
+  var sum = 0;
+  fun accumulate(n) {
+    sum = sum + n;
+    return sum;
+  }
+  return accumulate;
+}
+var acc = makeAccumulator();
+print acc(5);
+print acc(3);
+print acc(2);
+print "";
+
+// Higher-order function
+print "11. Higher-Order Function:";
+fun twice(fn, x) {
+  return fn(fn(x));
+}
+fun double(n) {
+  return n * 2;
+}
+print twice(double, 5);
+print "";
+
+// Function as return value
+print "12. Function as Return Value:";
+fun makeAdder(n) {
+  fun adder(x) {
+    return x + n;
+  }
+  return adder;
+}
+var add5 = makeAdder(5);
+var add10 = makeAdder(10);
+print add5(3);
+print add10(3);
+print "";
+
+// Nested closures
+print "13. Nested Closures:";
+fun outer() {
+  var x = "outer";
+  fun middle() {
+    var y = "middle";
+    fun inner() {
+      return x + " " + y + " inner";
+    }
+    return inner;
+  }
+  return middle;
+}
+var result = outer()()();
+print result;
+print "";
+
+// Function printing
+print "14. Function as Value:";
+print add;
+print makeCounter;
+print "";
+
+// Native function
+print "15. Native Function:";
+print clock;
+var time = clock();
+print "Current time: ";
+print time;
+print "";
+
+// Factorial
+print "16. Factorial:";
+fun factorial(n) {
+  if (n <= 1) return 1;
+  return n * factorial(n - 1);
+}
+print factorial(5);
+print "";
+
+// Return nil implicitly
+print "17. Implicit Return Nil:";
+fun noReturn() {
+  print "No explicit return";
+}
+var nil_result = noReturn();
+print nil_result;
+print "";
+
+print "=== ALL FUNCTION TESTS PASSED ===";

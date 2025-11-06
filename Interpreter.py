@@ -1,15 +1,25 @@
-"""
-Interpreter for the Lox language.
-Evaluates the Abstract Syntax Tree.
-"""
+
 
 from expr import Visitor as ExprVisitor, Binary, Grouping, Literal, Unary
 from stmt import Visitor as StmtVisitor
 from TokenType import TokenType
+from lox_callable import LoxCallable
+import time
+
+
+class Clock(LoxCallable):
+
+    def arity(self):
+        return 0
+
+    def call(self, interpreter, arguments):
+        return time.time()
+
+    def __str__(self):
+        return "<native fn>"
 
 
 class RuntimeError(Exception):
-    """Runtime error during interpretation."""
 
     def __init__(self, token, message):
         super().__init__(message)
@@ -17,64 +27,37 @@ class RuntimeError(Exception):
 
 
 class Interpreter(ExprVisitor, StmtVisitor):
-    """Interprets and evaluates Lox expressions and statements."""
 
     def __init__(self):
-        """Initialize the interpreter with an empty environment."""
         from environment import Environment
-        self.environment = Environment()
+        self.globals = Environment()
+        self.environment = self.globals
+
+        # Define native functions
+        self.globals.define("clock", Clock())
 
     def interpret(self, statements):
-        """
-        Interpret a list of statements.
-
-        Args:
-            statements: List of statements to execute
-        """
         try:
             for statement in statements:
-                self.execute(statement)
+                if statement is not None:  # Skip None from parse errors
+                    self.execute(statement)
         except RuntimeError as error:
             from lox import Lox
             Lox.runtime_error(error)
 
     def execute(self, stmt):
-        """
-        Execute a statement.
-
-        Args:
-            stmt: The statement to execute
-        """
         stmt.accept(self)
 
     def visit_expression_stmt(self, stmt):
-        """
-        Execute an expression statement.
-
-        Args:
-            stmt: Expression statement
-        """
         self.evaluate(stmt.expression)
         return None
 
     def visit_print_stmt(self, stmt):
-        """
-        Execute a print statement.
-
-        Args:
-            stmt: Print statement
-        """
         value = self.evaluate(stmt.expression)
         print(self.stringify(value))
         return None
 
     def visit_var_stmt(self, stmt):
-        """
-        Execute a variable declaration statement.
-
-        Args:
-            stmt: Var statement
-        """
         value = None
         if stmt.initializer is not None:
             value = self.evaluate(stmt.initializer)
@@ -83,23 +66,11 @@ class Interpreter(ExprVisitor, StmtVisitor):
         return None
 
     def visit_block_stmt(self, stmt):
-        """
-        Execute a block statement.
-
-        Args:
-            stmt: Block statement
-        """
         from environment import Environment
         self.execute_block(stmt.statements, Environment(self.environment))
         return None
 
     def visit_if_stmt(self, stmt):
-        """
-        Execute an if statement.
-
-        Args:
-            stmt: If statement
-        """
         if self.is_truthy(self.evaluate(stmt.condition)):
             self.execute(stmt.thenBranch)
         elif stmt.elseBranch is not None:
@@ -107,24 +78,28 @@ class Interpreter(ExprVisitor, StmtVisitor):
         return None
 
     def visit_while_stmt(self, stmt):
-        """
-        Execute a while statement.
-
-        Args:
-            stmt: While statement
-        """
         while self.is_truthy(self.evaluate(stmt.condition)):
             self.execute(stmt.body)
         return None
 
-    def execute_block(self, statements, environment):
-        """
-        Execute a list of statements in a given environment.
+    def visit_function_stmt(self, stmt):
+        from lox_function import LoxFunction
 
-        Args:
-            statements: List of statements to execute
-            environment: The environment for this block
-        """
+        # Capture the current environment as the closure
+        function = LoxFunction(stmt, self.environment)
+        self.environment.define(stmt.name.lexeme, function)
+        return None
+
+    def visit_return_stmt(self, stmt):
+        from return_exception import Return
+
+        value = None
+        if stmt.value is not None:
+            value = self.evaluate(stmt.value)
+
+        raise Return(value)
+
+    def execute_block(self, statements, environment):
         previous = self.environment
         try:
             self.environment = environment
@@ -135,41 +110,14 @@ class Interpreter(ExprVisitor, StmtVisitor):
             self.environment = previous
 
     def visit_variable_expr(self, expr):
-        """
-        Evaluate a variable expression.
-
-        Args:
-            expr: Variable expression
-
-        Returns:
-            The variable's value
-        """
         return self.environment.get(expr.name)
 
     def visit_assign_expr(self, expr):
-        """
-        Evaluate an assignment expression.
-
-        Args:
-            expr: Assign expression
-
-        Returns:
-            The assigned value
-        """
         value = self.evaluate(expr.value)
         self.environment.assign(expr.name, value)
         return value
 
     def visit_logical_expr(self, expr):
-        """
-        Evaluate a logical expression.
-
-        Args:
-            expr: Logical expression
-
-        Returns:
-            The result of the logical operation
-        """
         left = self.evaluate(expr.left)
 
         # Short-circuit evaluation
@@ -182,40 +130,33 @@ class Interpreter(ExprVisitor, StmtVisitor):
 
         return self.evaluate(expr.right)
 
+    def visit_call_expr(self, expr):
+        from lox_callable import LoxCallable
+
+        callee = self.evaluate(expr.callee)
+
+        arguments = []
+        for argument in expr.arguments:
+            arguments.append(self.evaluate(argument))
+
+        if not isinstance(callee, LoxCallable):
+            raise RuntimeError(expr.paren, "Can only call functions and classes.")
+
+        function = callee
+
+        if len(arguments) != function.arity():
+            raise RuntimeError(expr.paren,
+                f"Expected {function.arity()} arguments but got {len(arguments)}.")
+
+        return function.call(self, arguments)
+
     def visit_literal_expr(self, expr):
-        """
-        Evaluate a literal expression.
-
-        Args:
-            expr: Literal expression
-
-        Returns:
-            The literal value
-        """
         return expr.value
 
     def visit_grouping_expr(self, expr):
-        """
-        Evaluate a grouping expression.
-
-        Args:
-            expr: Grouping expression
-
-        Returns:
-            The value of the inner expression
-        """
         return self.evaluate(expr.expression)
 
     def visit_unary_expr(self, expr):
-        """
-        Evaluate a unary expression.
-
-        Args:
-            expr: Unary expression
-
-        Returns:
-            The result of applying the unary operator
-        """
         right = self.evaluate(expr.right)
 
         if expr.operator.type == TokenType.MINUS:
@@ -228,15 +169,6 @@ class Interpreter(ExprVisitor, StmtVisitor):
         return None
 
     def visit_binary_expr(self, expr):
-        """
-        Evaluate a binary expression.
-
-        Args:
-            expr: Binary expression
-
-        Returns:
-            The result of applying the binary operator
-        """
         left = self.evaluate(expr.left)
         right = self.evaluate(expr.right)
 
@@ -285,28 +217,9 @@ class Interpreter(ExprVisitor, StmtVisitor):
         return None
 
     def evaluate(self, expr):
-        """
-        Evaluate an expression by accepting this visitor.
-
-        Args:
-            expr: The expression to evaluate
-
-        Returns:
-            The value of the expression
-        """
         return expr.accept(self)
 
     def is_truthy(self, obj):
-        """
-        Determine the truthiness of a value.
-        In Lox: nil and false are falsey, everything else is truthy.
-
-        Args:
-            obj: The value to check
-
-        Returns:
-            bool: True if truthy, False if falsey
-        """
         if obj is None:
             return False
         if isinstance(obj, bool):
@@ -314,16 +227,6 @@ class Interpreter(ExprVisitor, StmtVisitor):
         return True
 
     def is_equal(self, a, b):
-        """
-        Check equality between two values.
-
-        Args:
-            a: First value
-            b: Second value
-
-        Returns:
-            bool: True if equal, False otherwise
-        """
         if a is None and b is None:
             return True
         if a is None:
@@ -331,46 +234,16 @@ class Interpreter(ExprVisitor, StmtVisitor):
         return a == b
 
     def check_number_operand(self, operator, operand):
-        """
-        Check that an operand is a number.
-
-        Args:
-            operator: The operator token
-            operand: The operand to check
-
-        Raises:
-            RuntimeError: If operand is not a number
-        """
         if isinstance(operand, float):
             return
         raise RuntimeError(operator, "Operand must be a number.")
 
     def check_number_operands(self, operator, left, right):
-        """
-        Check that both operands are numbers.
-
-        Args:
-            operator: The operator token
-            left: Left operand
-            right: Right operand
-
-        Raises:
-            RuntimeError: If operands are not numbers
-        """
         if isinstance(left, float) and isinstance(right, float):
             return
         raise RuntimeError(operator, "Operands must be numbers.")
 
     def stringify(self, obj):
-        """
-        Convert a Lox value to a string for printing.
-
-        Args:
-            obj: The value to convert
-
-        Returns:
-            str: String representation
-        """
         if obj is None:
             return "nil"
 

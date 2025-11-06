@@ -1,0 +1,120 @@
+// CHAPTER 9: CONTROL FLOW TEST
+// Tests if/else, logical operators, while, and for loops
+
+print "=== CHAPTER 9: CONTROL FLOW ===";
+print "";
+
+// If statements
+print "1. If Statements:";
+if (true) print "true branch executed";
+if (false) print "NOT EXECUTED"; else print "false branch executed";
+print "";
+
+// If with conditions
+print "2. If with Conditions:";
+var x = 10;
+if (x > 5) print "x is greater than 5";
+if (x < 5) print "NOT EXECUTED"; else print "x is not less than 5";
+print "";
+
+// Nested if statements
+print "3. Nested If:";
+var a = 15;
+if (a > 10) {
+  print "a > 10";
+  if (a > 20) {
+    print "NOT EXECUTED";
+  } else {
+    print "a <= 20";
+  }
+}
+print "";
+
+// Logical AND operator
+print "4. Logical AND:";
+print true and true;
+print true and false;
+print false and true;
+print false and false;
+print "";
+
+// Logical OR operator
+print "5. Logical OR:";
+print true or true;
+print true or false;
+print false or true;
+print false or false;
+print "";
+
+// Short-circuit evaluation
+print "6. Short-Circuit Evaluation:";
+print nil or "default";
+print "value" or "not evaluated";
+print nil and "not evaluated";
+print "value" and "evaluated";
+print "";
+
+// While loops
+print "7. While Loops:";
+var i = 0;
+while (i < 5) {
+  print i;
+  i = i + 1;
+}
+print "";
+
+// For loops
+print "8. For Loops:";
+for (var j = 0; j < 5; j = j + 1) {
+  print j;
+}
+print "";
+
+// For loop - no initializer
+print "9. For Loop - No Initializer:";
+var k = 0;
+for (; k < 3; k = k + 1) {
+  print k;
+}
+print "";
+
+// For loop - no increment
+print "10. For Loop - No Increment:";
+for (var m = 0; m < 3;) {
+  print m;
+  m = m + 1;
+}
+print "";
+
+// Nested loops
+print "11. Nested Loops:";
+for (var outer = 1; outer <= 3; outer = outer + 1) {
+  for (var inner = 1; inner <= 2; inner = inner + 1) {
+    print outer * 10 + inner;
+  }
+}
+print "";
+
+// Complex conditions
+print "12. Complex Conditions:";
+var val = 7;
+if (val > 5 and val < 10) {
+  print "val is between 5 and 10";
+}
+if (val < 5 or val > 10) {
+  print "NOT EXECUTED";
+} else {
+  print "val is between 5 and 10 (or condition)";
+}
+print "";
+
+// Loop with conditional
+print "13. Loop with Conditional:";
+for (var n = 1; n <= 10; n = n + 1) {
+  if (n > 5) {
+    print n;
+  }
+}
+print "";
+
+print "=== ALL CONTROL FLOW TESTS PASSED ===";

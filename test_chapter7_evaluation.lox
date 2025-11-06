@@ -1,0 +1,71 @@
+// CHAPTER 7: EVALUATING EXPRESSIONS TEST
+// Tests runtime evaluation of expressions
+
+print "=== CHAPTER 7: EVALUATING EXPRESSIONS ===";
+print "";
+
+// Truthiness
+print "1. Truthiness:";
+print !false;
+print !true;
+print !nil;
+print !"non-empty string";
+print !0;
+print "";
+
+// Arithmetic edge cases
+print "2. Arithmetic Edge Cases:";
+print 0 + 0;
+print 0 - 0;
+print 0 * 5;
+print 5 * 0;
+print -0;
+print 1 / 1;
+print "";
+
+// String concatenation
+print "3. String Concatenation:";
+print "Hello" + " " + "World" + "!";
+print "Number: " + "42";
+print "";
+
+// Comparison with different types
+print "4. Comparisons:";
+print 1 < 2;
+print 2 > 1;
+print 1 <= 1;
+print 2 >= 2;
+print 1 == 1;
+print 1 != 2;
+print "";
+
+// Boolean logic
+print "5. Boolean Logic (via equality):";
+print true == true;
+print false == false;
+print true == false;
+print true != false;
+print "";
+
+// Mixed expressions
+print "6. Mixed Expressions:";
+print 1 + 2 * 3;
+print (1 + 2) * 3;
+print 10 - 2 - 3;
+print 10 - (2 - 3);
+print "";
+
+// Nested operations
+print "7. Nested Operations:";
+print -(-5);
+print -(10 - 20);
+print !(!true);
+print !(5 > 10);
+print "";
+
+// Complex expression
+print "8. Complex Expression:";
+print ((3 + 4) * 2) - (10 / 5) + 1;
+print "";
+
+print "=== ALL EVALUATION TESTS PASSED ===";

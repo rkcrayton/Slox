@@ -20,6 +20,11 @@ class Visitor(ABC):
         pass
 
     @abstractmethod
+    def visit_function_stmt(self, stmt):
+        """Visit a Function node."""
+        pass
+
+    @abstractmethod
     def visit_if_stmt(self, stmt):
         """Visit a If node."""
         pass
@@ -27,6 +32,11 @@ class Visitor(ABC):
     @abstractmethod
     def visit_print_stmt(self, stmt):
         """Visit a Print node."""
+        pass
+
+    @abstractmethod
+    def visit_return_stmt(self, stmt):
+        """Visit a Return node."""
         pass
 
     @abstractmethod
@@ -83,6 +93,27 @@ class Expression(Stmt):
         return visitor.visit_expression_stmt(self)
 
 
+class Function(Stmt):
+    """Function expression."""
+
+    def __init__(self, name, params, body):
+        """
+        Initialize a Function expression.
+
+        Args:
+            name: Token
+            params: List<Token>
+            body: List<Stmt>
+        """
+        self.name = name
+        self.params = params
+        self.body = body
+
+    def accept(self, visitor):
+        """Accept a visitor."""
+        return visitor.visit_function_stmt(self)
+
+
 class If(Stmt):
     """If expression."""
 
@@ -119,6 +150,25 @@ class Print(Stmt):
     def accept(self, visitor):
         """Accept a visitor."""
         return visitor.visit_print_stmt(self)
+
+
+class Return(Stmt):
+    """Return expression."""
+
+    def __init__(self, keyword, value):
+        """
+        Initialize a Return expression.
+
+        Args:
+            keyword: Token
+            value: Expr
+        """
+        self.keyword = keyword
+        self.value = value
+
+    def accept(self, visitor):
+        """Accept a visitor."""
+        return visitor.visit_return_stmt(self)
 
 
 class Var(Stmt):

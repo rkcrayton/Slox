@@ -1,8 +1,4 @@
 #!/usr/bin/env python3
-"""
-Lox Interpreter
-Based on Crafting Interpreters by Robert Nystrom
-"""
 
 import sys
 from Scanner import Scanner
@@ -11,7 +7,6 @@ from Interpreter import Interpreter
 
 
 class Lox:
-    """Main Lox interpreter class."""
 
     had_error = False
     had_runtime_error = False
@@ -22,7 +17,6 @@ class Lox:
 
     @staticmethod
     def main(args):
-        """Main entry point for the Lox interpreter."""
         # Initialize the interpreter
         Lox.interpreter = Interpreter()
 
@@ -34,9 +28,10 @@ class Lox:
         else:
             Lox.run_prompt()
 
+
+# run file directly
     @staticmethod
     def run_file(path):
-        """Run a Lox script from a file."""
         try:
             with open(path, 'r', encoding='utf-8') as f:
                 source = f.read()
@@ -51,9 +46,9 @@ class Lox:
             print(f"Error reading file: {e}", file=sys.stderr)
             sys.exit(74)
 
+# Run code within prompt
     @staticmethod
     def run_prompt():
-        """Run the Lox REPL (Read-Eval-Print Loop)."""
         print("Lox REPL - Enter Lox code (Ctrl+D or Ctrl+C to exit)")
         try:
             while True:
@@ -61,7 +56,9 @@ class Lox:
                     line = input("> ")
                     if line:
                         Lox.run(line)
+                        # Reset error flags so errors don't stop the REPL
                         Lox.had_error = False
+                        Lox.had_runtime_error = False
                 except EOFError:
                     print("\nExiting...")
                     break
@@ -69,44 +66,44 @@ class Lox:
             print("\nExiting...")
             sys.exit(0)
 
+
+# Run Lox code
     @staticmethod
     def run(source):
-        """Run Lox source code."""
         scanner = Scanner(source)
         tokens = scanner.scan_tokens()
         parser = Parser(tokens)
-        expression = parser.parse()
+        statements = parser.parse()
 
         # Stop if there was a syntax error.
         if Lox.had_error:
             return
 
-        if expression is not None:
-            Lox.interpreter.interpret(expression)
+        Lox.interpreter.interpret(statements)
 
+# Report errors
     @staticmethod
     def error(line, message):
-        """Report an error at a given line."""
         Lox.report(line, "", message)
 
+# Report error tokens
     @staticmethod
     def error_token(token, message):
-        """Report an error at a given token."""
         from TokenType import TokenType
         if token.type == TokenType.EOF:
             Lox.report(token.line, " at end", message)
         else:
             Lox.report(token.line, f" at '{token.lexeme}'", message)
 
+# Runntime error
     @staticmethod
     def runtime_error(error):
-        """Report a runtime error."""
         print(f"{error}\n[line {error.token.line}]", file=sys.stderr)
         Lox.had_runtime_error = True
 
+# Report error location
     @staticmethod
     def report(line, where, message):
-        """Report an error with location information."""
         print(f"[line {line}] Error{where}: {message}", file=sys.stderr)
         Lox.had_error = True
 

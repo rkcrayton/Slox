@@ -1,0 +1,105 @@
+// CHAPTER 8: STATEMENTS AND STATE TEST
+// Tests variables, assignment, and block scopes
+
+print "=== CHAPTER 8: STATEMENTS AND STATE ===";
+print "";
+
+// Variable declarations
+print "1. Variable Declarations:";
+var a = 10;
+var b = 20;
+var c = a + b;
+print a;
+print b;
+print c;
+print "";
+
+// Variable assignment
+print "2. Variable Assignment:";
+a = 5;
+print a;
+b = a * 2;
+print b;
+print "";
+
+// Uninitialized variables
+print "3. Uninitialized Variables:";
+var x;
+print x;
+x = 100;
+print x;
+print "";
+
+// Assignment chains
+print "4. Assignment Chains:";
+var i = 1;
+var j = 2;
+var k = 3;
+i = j = k = 42;
+print i;
+print j;
+print k;
+print "";
+
+// Block scopes
+print "5. Block Scopes:";
+var outer = "outer";
+{
+  var inner = "inner";
+  print outer;
+  print inner;
+}
+print outer;
+print "";
+
+// Variable shadowing
+print "6. Variable Shadowing:";
+var shadowed = "global";
+{
+  var shadowed = "local";
+  print shadowed;
+}
+print shadowed;
+print "";
+
+// Nested blocks
+print "7. Nested Blocks:";
+var level1 = "level1";
+{
+  var level2 = "level2";
+  {
+    var level3 = "level3";
+    print level1;
+    print level2;
+    print level3;
+  }
+  print level1;
+  print level2;
+}
+print level1;
+print "";
+
+// Assignment to outer scope
+print "8. Assignment to Outer Scope:";
+var counter = 0;
+{
+  counter = counter + 1;
+  {
+    counter = counter + 1;
+  }
+  counter = counter + 1;
+}
+print counter;
+print "";
+
+// Multiple variables in block
+print "9. Multiple Variables in Block:";
+{
+  var x = 1;
+  var y = 2;
+  var z = 3;
+  print x + y + z;
+}
+print "";
+
+print "=== ALL STATEMENT AND STATE TESTS PASSED ===";
