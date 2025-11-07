@@ -15,7 +15,6 @@ class Lox:
     def __init__(self):
         pass
 
-    @staticmethod
     def main(args):
         # Initialize the interpreter
         Lox.interpreter = Interpreter()
@@ -30,7 +29,7 @@ class Lox:
 
 
 # run file directly
-    @staticmethod
+
     def run_file(path):
         try:
             with open(path, 'r', encoding='utf-8') as f:
@@ -68,7 +67,6 @@ class Lox:
 
 
 # Run Lox code
-    @staticmethod
     def run(source):
         scanner = Scanner(source)
         tokens = scanner.scan_tokens()
@@ -82,12 +80,10 @@ class Lox:
         Lox.interpreter.interpret(statements)
 
 # Report errors
-    @staticmethod
     def error(line, message):
         Lox.report(line, "", message)
 
 # Report error tokens
-    @staticmethod
     def error_token(token, message):
         from TokenType import TokenType
         if token.type == TokenType.EOF:
@@ -96,13 +92,11 @@ class Lox:
             Lox.report(token.line, f" at '{token.lexeme}'", message)
 
 # Runntime error
-    @staticmethod
     def runtime_error(error):
         print(f"{error}\n[line {error.token.line}]", file=sys.stderr)
         Lox.had_runtime_error = True
 
 # Report error location
-    @staticmethod
     def report(line, where, message):
         print(f"[line {line}] Error{where}: {message}", file=sys.stderr)
         Lox.had_error = True

@@ -78,12 +78,6 @@ The interpreter can tokenize source code, parse it into an AST, and execute it w
 - **`test_comprehensive.lox`** - Complete integration test
 - **`run_tests.py`** - Automated test runner
 
-## Documentation Files
-
-- **`TESTING_GUIDE.md`** - Comprehensive testing instructions
-- **`REPL_REFERENCE.md`** - REPL usage guide
-- **`COMPLETE_EXPLANATION_PART1-4.md`** - Detailed technical explanation
-
 ---
 
 # Current Capabilities
@@ -91,8 +85,7 @@ The interpreter can tokenize source code, parse it into an AST, and execute it w
 ## Lexical Analysis (Chapter 4)
 - Tokenization of all Lox constructs
 - Number literals (integers and floats)
-- String literals with escape sequences
-- Identifier recognition
+- String literals
 - Keyword detection
 - Comment handling (`//`)
 
@@ -102,7 +95,6 @@ The interpreter can tokenize source code, parse it into an AST, and execute it w
 - Logical operators: `and`, `or`, `!`
 - Unary operators: `-`, `!`
 - Grouping with parentheses
-- Proper operator precedence and associativity
 - String concatenation with `+`
 
 ## Variables and State (Chapter 8)
@@ -110,8 +102,6 @@ The interpreter can tokenize source code, parse it into an AST, and execute it w
 - Uninitialized variables (default to `nil`)
 - Variable assignment: `x = 5;`
 - Block scoping with `{ }`
-- Variable shadowing
-- Nested scopes with proper environment chains
 
 ## Control Flow (Chapter 9)
 - **If statements**: `if (condition) statement else statement`
@@ -120,7 +110,6 @@ The interpreter can tokenize source code, parse it into an AST, and execute it w
 - **Logical operators with short-circuit evaluation**:
   - `and` - stops on first false
   - `or` - stops on first true
-- Nested control structures
 
 ## Functions (Chapter 10)
 - **Function declarations**: `fun name(params) { body }`
@@ -129,43 +118,25 @@ The interpreter can tokenize source code, parse it into an AST, and execute it w
 - **First-class functions**: Pass as arguments, return from functions
 - **Closures**: Functions capture their surrounding scope
 - **Recursion**: Full support for recursive functions
-- **Higher-order functions**: Functions that take/return functions
 - **Native functions**: `clock()` returns current timestamp
-- Up to 255 parameters per function
-
-## Type System
-- **Numbers**: Double-precision floating point
-- **Strings**: Immutable text with concatenation
-- **Booleans**: `true`, `false`
-- **Nil**: `nil` (null/none equivalent)
-- **Functions**: First-class callable objects
 
 ## Error Handling
-- Lexical errors (invalid characters, unterminated strings)
+- Lexical errors 
 - Parse errors with error recovery
-- Runtime errors (undefined variables, type errors)
-- REPL resilience (errors don't crash REPL)
+- Runtime errors 
 
 ---
 
 # Limitations
 
 ## Not Implemented (Chapters 11-13)
-- **Static variable resolution** (Chapter 11)
-- **Classes and objects** (Chapter 12)
+- **Resolving and Binding** (Chapter 11)
+- **Classes** (Chapter 12)
 - **Inheritance** (Chapter 13)
 
 ## Language Restrictions
-- No break/continue statements
-- No switch/case statements
-- No exception handling (try/catch)
 - No imports/modules
 - Limited standard library (only `clock()`)
-
-## Implementation Details
-- No garbage collection 
-- No optimization 
-- Limited error messages compared to production languages
 
 ---
 
@@ -199,13 +170,6 @@ if (x > 10) {
 } else {
   print "small";
 }
-
-// Nested if
-if (x > 10) {
-  if (x > 20) {
-    print "very large";
-  }
-}
 ```
 
 ### While Loops
@@ -223,27 +187,16 @@ while (i < 5) {
 for (var i = 0; i < 5; i = i + 1) {
   print i;
 }
-
-// Infinite loop
-for (;;) {
-  print "forever";
-}
-
-// No initializer
-var j = 0;
-for (; j < 3; j = j + 1) {
-  print j;
-}
 ```
 
 ### Logical Operators
 ```lox
-// Short-circuit AND
+//  AND
 if (x != nil and x > 10) {
   print "valid and large";
 }
 
-// Short-circuit OR
+// OR
 var value = input() or "default";
 
 // NOT
@@ -256,7 +209,7 @@ if (!isDone) {
 
 ### Function Declaration
 ```lox
-// Simple function
+// Function
 fun greet(name) {
   print "Hello, " + name + "!";
 }
@@ -277,79 +230,9 @@ fun sayHello() {
 }
 ```
 
-### Recursive Functions
-```lox
-// Factorial
-fun factorial(n) {
-  if (n <= 1) return 1;
-  return n * factorial(n - 1);
-}
-
-// Fibonacci
-fun fib(n) {
-  if (n <= 1) return n;
-  return fib(n - 2) + fib(n - 1);
-}
-```
-
-### Closures
-```lox
-// Counter closure
-fun makeCounter() {
-  var count = 0;
-  fun counter() {
-    count = count + 1;
-    return count;
-  }
-  return counter;
-}
-
-var c = makeCounter();
-print c();  // 1
-print c();  // 2
-print c();  // 3
-
-// Adder factory
-fun makeAdder(n) {
-  fun adder(x) {
-    return x + n;
-  }
-  return adder;
-}
-
-var add5 = makeAdder(5);
-print add5(3);  // 8
-```
-
-### Higher-Order Functions
-```lox
-// Function that takes a function
-fun twice(fn, x) {
-  return fn(fn(x));
-}
-
-fun double(n) {
-  return n * 2;
-}
-
-print twice(double, 5);  // 20
-```
-
-## Block Scoping
-```lox
-var x = "global";
-
-{
-  var x = "local";
-  print x;  // local
-}
-
-print x;  // global
-```
-
 ## Native Functions
 ```lox
-// Get current Unix timestamp
+// Get current timestamp
 var start = clock();
 // ... do work ...
 var end = clock();
@@ -360,13 +243,9 @@ print "Elapsed: " + (end - start);
 
 # Run and Build
 
-## Prerequisites
-- Python 3.7 or higher
-- No external dependencies required
-
 ## Running the Interpreter
 
-### REPL (Interactive Mode)
+### REPL 
 ```bash
 python3 lox.py
 ```
@@ -389,25 +268,24 @@ python3 lox.py filename.lox
 
 Example:
 ```bash
-python3 lox.py test_comprehensive.lox
+python3 lox.py test/test_chapter4_scanning.lox
 ```
 
 ## Running Tests
 
 ### Run All Tests
 ```bash
-python3 run_tests.py
+python3 run_test.py
 ```
 
 ### Run Individual Tests
 ```bash
-python3 lox.py test_chapter4_scanning.lox
-python3 lox.py test_chapter6_expressions.lox
-python3 lox.py test_chapter7_evaluation.lox
-python3 lox.py test_chapter8_statements.lox
-python3 lox.py test_chapter9_control.lox
-python3 lox.py test_chapter10_functions.lox
-python3 lox.py test_comprehensive.lox
+python3 lox.py test/test_chapter4_scanning.lox
+python3 lox.py test/test_chapter6_expressions.lox
+python3 lox.py test/test_chapter7_evaluation.lox
+python3 lox.py test/test_chapter8_statements.lox
+python3 lox.py test/test_chapter9_control.lox
+python3 lox.py test/test_chapter10_functions.lox
 ```
 
 ## Regenerating AST Classes
@@ -417,80 +295,6 @@ python3 GenerateAST.py .
 ```
 
 This regenerates `expr.py` and `stmt.py`.
-
----
-
-# Testing
-
-## Test Coverage
-
-### Chapter 4: Scanning (~90 lines)
-Tests all token types:
-- Numbers, strings, identifiers, keywords
-- All operators
-- Comments
-- Whitespace handling
-
-**Expected Output**: Confirms all tokens recognized
-
-### Chapter 6: Expressions (~90 lines)
-Tests expression parsing:
-- Literals
-- Unary/binary operators
-- Operator precedence
-- Grouping
-- String concatenation
-
-**Expected Output**: All expressions evaluate correctly
-
-### Chapter 7: Evaluation (~80 lines)
-Tests runtime evaluation:
-- Truthiness rules
-- Arithmetic operations
-- Comparisons
-- Nested expressions
-
-**Expected Output**: Correct evaluation results
-
-### Chapter 8: Statements (~100 lines)
-Tests variables and scoping:
-- Variable declarations
-- Assignment
-- Block scopes
-- Variable shadowing
-- Nested blocks
-
-**Expected Output**: Proper scoping behavior
-
-### Chapter 9: Control Flow (~130 lines)
-Tests control structures:
-- If/else statements
-- Logical operators (and, or)
-- While loops
-- For loops
-- Nested control flow
-
-**Expected Output**: Correct branching and looping
-
-### Chapter 10: Functions 
-Tests functions and closures:
-- Function declarations
-- Function calls
-- Return statements
-- Recursion (fibonacci, factorial)
-- Closures (counter, adder factory)
-- Higher-order functions
-- Native functions
-
-**Expected Output**: All function features work
-
-### Comprehensive Test (~160 lines)
-Integration test with real-world examples:
-- Bank account simulation (closures)
-- FizzBuzz-like pattern
-- All features combined
-
-**Expected Output**: Complete working language
 
 # Conclusion
 

@@ -27,18 +27,16 @@ class Scanner:
         self.source = source
         self.tokens = []
 
-        # Track position in source code
-        self.start = 0      # Points to first character of lexeme being scanned
-        self.current = 0    # Points to current character being considered
-        self.line = 1       # Current line number
+
+        self.start = 0
+        self.current = 0
+        self.line = 1
 
     def scan_tokens(self):
         while not self.is_at_end():
-            # We are at the beginning of the next lexeme.
             self.start = self.current
             self.scan_token()
 
-        # Add EOF token at the end
         self.tokens.append(Token(TokenType.EOF, "", None, self.line))
         return self.tokens
 
@@ -78,13 +76,12 @@ class Scanner:
             self.add_token(TokenType.GREATER_EQUAL if self.match('=') else TokenType.GREATER)
         elif c == '/':
             if self.match('/'):
-                # A comment goes until the end of the line.
+
                 while self.peek() != '\n' and not self.is_at_end():
                     self.advance()
             else:
                 self.add_token(TokenType.SLASH)
         elif c == ' ' or c == '\r' or c == '\t':
-            # Ignore whitespace.
             pass
         elif c == '\n':
             self.line += 1
@@ -96,7 +93,6 @@ class Scanner:
             elif self.is_alpha(c):
                 self.identifier()
             else:
-                # Import Lox here to avoid circular import
                 from lox import Lox
                 Lox.error(self.line, "Unexpected character.")
 

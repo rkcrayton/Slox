@@ -1,7 +1,7 @@
 
 
 from lox_callable import LoxCallable
-
+#Method to bind and execute functions
 
 class LoxFunction(LoxCallable):
 
@@ -16,17 +16,14 @@ class LoxFunction(LoxCallable):
         from environment import Environment
         from return_exception import Return
 
-        # Create new environment with closure as parent (not globals!)
         environment = Environment(self.closure)
 
-        # Bind parameters to arguments
         for i in range(len(self.declaration.params)):
             environment.define(
                 self.declaration.params[i].lexeme,
                 arguments[i]
             )
 
-        # Execute function body, catching return
         try:
             interpreter.execute_block(self.declaration.body, environment)
         except Return as return_value:

@@ -2,7 +2,7 @@
 
 from abc import ABC, abstractmethod
 
-
+#Interface for any function called in Lox
 class LoxCallable(ABC):
 
     @abstractmethod

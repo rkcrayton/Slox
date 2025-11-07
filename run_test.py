@@ -4,12 +4,12 @@ import subprocess
 import sys
 
 tests = [
-    ("Chapter 4: Scanning", "test_chapter4_scanning.lox"),
-    ("Chapter 6: Expressions", "test_chapter6_expressions.lox"),
-    ("Chapter 7: Evaluation", "test_chapter7_evaluation.lox"),
-    ("Chapter 8: Statements & State", "test_chapter8_statements.lox"),
-    ("Chapter 9: Control Flow", "test_chapter9_control.lox"),
-    ("Chapter 10: Functions", "test_chapter10_functions.lox"),
+    ("Chapter 4: Scanning", "test/test_chapter4_scanning.lox"),
+    ("Chapter 6: Expressions", "test/test_chapter6_expressions.lox"),
+    ("Chapter 7: Evaluation", "test/test_chapter7_evaluation.lox"),
+    ("Chapter 8: Statements & State", "test/test_chapter8_statements.lox"),
+    ("Chapter 9: Control Flow", "test/test_chapter9_control.lox"),
+    ("Chapter 10: Functions", "test/test_chapter10_functions.lox"),
 ]
 
 
@@ -21,7 +21,7 @@ def run_test(name, file):
 
     try:
         result = subprocess.run(
-            ["python3", "../lox.py", file],
+            ["python3", "lox.py", file],
             capture_output=True,
             text=True,
             timeout=10
