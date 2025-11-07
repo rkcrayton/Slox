@@ -1,0 +1,168 @@
+// MERGE SORT IN LOX
+// Sorts array [64, 34, 25, 12, 22, 11, 90, 5]
+
+print "  MERGE SORT";
+
+
+// Initialize array
+var arr0 = 64;
+var arr1 = 34;
+var arr2 = 25;
+var arr3 = 12;
+var arr4 = 22;
+var arr5 = 11;
+var arr6 = 90;
+var arr7 = 5;
+
+var size = 8;
+
+print "Original array:";
+print arr0;
+print arr1;
+print arr2;
+print arr3;
+print arr4;
+print arr5;
+print arr6;
+print arr7;
+print "";
+
+// Helper: Get array element
+fun getArr(index) {
+  if (index == 0) return arr0;
+  if (index == 1) return arr1;
+  if (index == 2) return arr2;
+  if (index == 3) return arr3;
+  if (index == 4) return arr4;
+  if (index == 5) return arr5;
+  if (index == 6) return arr6;
+  if (index == 7) return arr7;
+  return nil;
+}
+
+// Helper: Set array element
+fun setArr(index, value) {
+  if (index == 0) arr0 = value;
+  if (index == 1) arr1 = value;
+  if (index == 2) arr2 = value;
+  if (index == 3) arr3 = value;
+  if (index == 4) arr4 = value;
+  if (index == 5) arr5 = value;
+  if (index == 6) arr6 = value;
+  if (index == 7) arr7 = value;
+}
+
+// Temporary arrays for merge
+var temp0 = 0;
+var temp1 = 0;
+var temp2 = 0;
+var temp3 = 0;
+var temp4 = 0;
+var temp5 = 0;
+var temp6 = 0;
+var temp7 = 0;
+
+fun getTemp(index) {
+  if (index == 0) return temp0;
+  if (index == 1) return temp1;
+  if (index == 2) return temp2;
+  if (index == 3) return temp3;
+  if (index == 4) return temp4;
+  if (index == 5) return temp5;
+  if (index == 6) return temp6;
+  if (index == 7) return temp7;
+  return nil;
+}
+
+fun setTemp(index, value) {
+  if (index == 0) temp0 = value;
+  if (index == 1) temp1 = value;
+  if (index == 2) temp2 = value;
+  if (index == 3) temp3 = value;
+  if (index == 4) temp4 = value;
+  if (index == 5) temp5 = value;
+  if (index == 6) temp6 = value;
+  if (index == 7) temp7 = value;
+}
+
+// Merge function
+fun merge(left, mid, right) {
+  var n1 = mid - left + 1;
+  var n2 = right - mid;
+  
+  // Copy to temp
+  for (var i = 0; i < n1; i = i + 1) {
+    setTemp(i, getArr(left + i));
+  }
+  for (var j = 0; j < n2; j = j + 1) {
+    setTemp(n1 + j, getArr(mid + 1 + j));
+  }
+  
+  // Merge back
+  var i = 0;
+  var j = 0;
+  var k = left;
+  
+  while (i < n1 and j < n2) {
+    if (getTemp(i) <= getTemp(n1 + j)) {
+      setArr(k, getTemp(i));
+      i = i + 1;
+    } else {
+      setArr(k, getTemp(n1 + j));
+      j = j + 1;
+    }
+    k = k + 1;
+  }
+  
+  while (i < n1) {
+    setArr(k, getTemp(i));
+    i = i + 1;
+    k = k + 1;
+  }
+  
+  while (j < n2) {
+    setArr(k, getTemp(n1 + j));
+    j = j + 1;
+    k = k + 1;
+  }
+}
+
+// Merge Sort (iterative bottom-up)
+fun mergeSort() {
+  var currSize = 1;
+  
+  while (currSize < size) {
+    var leftStart = 0;
+    
+    while (leftStart < size - 1) {
+      var mid = leftStart + currSize - 1;
+      
+      var rightEnd = leftStart + currSize * 2 - 1;
+      if (rightEnd > size - 1) {
+        rightEnd = size - 1;
+      }
+      
+      if (mid < size - 1) {
+        merge(leftStart, mid, rightEnd);
+      }
+      
+      leftStart = leftStart + currSize * 2;
+    }
+    
+    currSize = currSize * 2;
+  }
+}
+
+mergeSort();
+
+print "Sorted array:";
+print arr0;
+print arr1;
+print arr2;
+print arr3;
+print arr4;
+print arr5;
+print arr6;
+print arr7;
+print "";
+

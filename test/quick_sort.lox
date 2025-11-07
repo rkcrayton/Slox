@@ -1,0 +1,154 @@
+// QUICK SORT IN LOX
+// Sorts array [64, 34, 25, 12, 22, 11, 90, 5]
+
+print "  QUICK SORT";
+
+
+// Initialize array
+var arr0 = 64;
+var arr1 = 34;
+var arr2 = 25;
+var arr3 = 12;
+var arr4 = 22;
+var arr5 = 11;
+var arr6 = 90;
+var arr7 = 5;
+
+var size = 8;
+
+print "Original array:";
+print arr0;
+print arr1;
+print arr2;
+print arr3;
+print arr4;
+print arr5;
+print arr6;
+print arr7;
+print "";
+
+// Helper: Get array element
+fun getArr(index) {
+  if (index == 0) return arr0;
+  if (index == 1) return arr1;
+  if (index == 2) return arr2;
+  if (index == 3) return arr3;
+  if (index == 4) return arr4;
+  if (index == 5) return arr5;
+  if (index == 6) return arr6;
+  if (index == 7) return arr7;
+  return nil;
+}
+
+// Helper: Set array element
+fun setArr(index, value) {
+  if (index == 0) arr0 = value;
+  if (index == 1) arr1 = value;
+  if (index == 2) arr2 = value;
+  if (index == 3) arr3 = value;
+  if (index == 4) arr4 = value;
+  if (index == 5) arr5 = value;
+  if (index == 6) arr6 = value;
+  if (index == 7) arr7 = value;
+}
+
+// Helper: Swap two elements
+fun swap(i, j) {
+  var temp = getArr(i);
+  setArr(i, getArr(j));
+  setArr(j, temp);
+}
+
+// Partition function
+fun partition(low, high) {
+  var pivot = getArr(high);
+  var i = low - 1;
+  
+  for (var j = low; j < high; j = j + 1) {
+    if (getArr(j) < pivot) {
+      i = i + 1;
+      swap(i, j);
+    }
+  }
+  
+  swap(i + 1, high);
+  return i + 1;
+}
+
+// Quick Sort (iterative using simulated stack)
+fun quickSort() {
+  var stack0 = 0;
+  var stack1 = 0;
+  var stack2 = 0;
+  var stack3 = 0;
+  var stack4 = 0;
+  var stack5 = 0;
+  var stack6 = 0;
+  var stack7 = 0;
+  var top = -1;
+  
+  fun push(value) {
+    top = top + 1;
+    if (top == 0) stack0 = value;
+    if (top == 1) stack1 = value;
+    if (top == 2) stack2 = value;
+    if (top == 3) stack3 = value;
+    if (top == 4) stack4 = value;
+    if (top == 5) stack5 = value;
+    if (top == 6) stack6 = value;
+    if (top == 7) stack7 = value;
+  }
+  
+  fun pop() {
+    var value = nil;
+    if (top == 0) value = stack0;
+    if (top == 1) value = stack1;
+    if (top == 2) value = stack2;
+    if (top == 3) value = stack3;
+    if (top == 4) value = stack4;
+    if (top == 5) value = stack5;
+    if (top == 6) value = stack6;
+    if (top == 7) value = stack7;
+    top = top - 1;
+    return value;
+  }
+  
+  // Push initial range
+  push(0);
+  push(size - 1);
+  
+  // Process stack
+  while (top >= 0) {
+    var high = pop();
+    var low = pop();
+    
+    if (low < high) {
+      var pi = partition(low, high);
+      
+      // Push left partition
+      push(low);
+      push(pi - 1);
+      
+      // Push right partition
+      push(pi + 1);
+      push(high);
+    }
+  }
+}
+
+quickSort();
+
+print "Sorted array:";
+print arr0;
+print arr1;
+print arr2;
+print arr3;
+print arr4;
+print arr5;
+print arr6;
+print arr7;
+print "";
+
+print "========================================";
+print "COMPLETE - O(n log n) avg, O(n^2) worst";
+print "========================================";

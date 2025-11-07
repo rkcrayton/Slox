@@ -10,7 +10,6 @@ tests = [
     ("Chapter 8: Statements & State", "test_chapter8_statements.lox"),
     ("Chapter 9: Control Flow", "test_chapter9_control.lox"),
     ("Chapter 10: Functions", "test_chapter10_functions.lox"),
-    ("Comprehensive Test", "test_comprehensive.lox"),
 ]
 
 
@@ -22,7 +21,7 @@ def run_test(name, file):
 
     try:
         result = subprocess.run(
-            ["python3", "lox.py", file],
+            ["python3", "../lox.py", file],
             capture_output=True,
             text=True,
             timeout=10

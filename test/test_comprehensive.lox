@@ -1,11 +1,8 @@
 // COMPREHENSIVE TEST - ALL CHAPTERS 4-10
 // Complete test of the Lox interpreter
 
-print "======================================";
 print "  LOX INTERPRETER - COMPREHENSIVE TEST";
 print "  CHAPTERS 4-10";
-print "======================================";
-print "";
 
 // CHAPTER 4-7: Expressions
 print "=== EXPRESSIONS ===";

@@ -1,0 +1,90 @@
+// INSERTION SORT IN LOX
+// Sorts array [64, 34, 25, 12, 22, 11, 90, 5]
+
+print "  INSERTION SORT";
+
+
+// Initialize array
+var arr0 = 64;
+var arr1 = 34;
+var arr2 = 25;
+var arr3 = 12;
+var arr4 = 22;
+var arr5 = 11;
+var arr6 = 90;
+var arr7 = 5;
+
+var size = 8;
+
+print "Original array:";
+print arr0;
+print arr1;
+print arr2;
+print arr3;
+print arr4;
+print arr5;
+print arr6;
+print arr7;
+print "";
+
+// Insertion Sort
+for (var i = 1; i < size; i = i + 1) {
+  var key = nil;
+  
+  if (i == 1) key = arr1;
+  if (i == 2) key = arr2;
+  if (i == 3) key = arr3;
+  if (i == 4) key = arr4;
+  if (i == 5) key = arr5;
+  if (i == 6) key = arr6;
+  if (i == 7) key = arr7;
+  
+  var j = i - 1;
+  var done = false;
+  
+  while (j >= 0 and !done) {
+    var arrJ = nil;
+    if (j == 0) arrJ = arr0;
+    if (j == 1) arrJ = arr1;
+    if (j == 2) arrJ = arr2;
+    if (j == 3) arrJ = arr3;
+    if (j == 4) arrJ = arr4;
+    if (j == 5) arrJ = arr5;
+    if (j == 6) arrJ = arr6;
+    
+    if (arrJ > key) {
+      if (j + 1 == 1) arr1 = arrJ;
+      if (j + 1 == 2) arr2 = arrJ;
+      if (j + 1 == 3) arr3 = arrJ;
+      if (j + 1 == 4) arr4 = arrJ;
+      if (j + 1 == 5) arr5 = arrJ;
+      if (j + 1 == 6) arr6 = arrJ;
+      if (j + 1 == 7) arr7 = arrJ;
+      j = j - 1;
+    } else {
+      done = true;
+    }
+  }
+  
+  var insertPos = j + 1;
+  if (insertPos == 0) arr0 = key;
+  if (insertPos == 1) arr1 = key;
+  if (insertPos == 2) arr2 = key;
+  if (insertPos == 3) arr3 = key;
+  if (insertPos == 4) arr4 = key;
+  if (insertPos == 5) arr5 = key;
+  if (insertPos == 6) arr6 = key;
+  if (insertPos == 7) arr7 = key;
+}
+
+print "Sorted array:";
+print arr0;
+print arr1;
+print arr2;
+print arr3;
+print arr4;
+print arr5;
+print arr6;
+print arr7;
+print "";
+
