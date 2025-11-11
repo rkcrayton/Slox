@@ -1,0 +1,410 @@
+============================================================
+LOX INTERPRETER - TEST SUITE
+Chapters 4-10
+============================================================
+
+============================================================
+Testing: Chapter 4: Scanning
+============================================================
+=== CHAPTER 4: SCANNING TEST ===
+
+1. Number Literals:
+123
+45.67
+
+2. String Literals:
+hello world
+multi word string
+
+3. Boolean and Nil:
+true
+false
+nil
+
+4. Arithmetic Operators:
+3
+-1
+30
+0.875
+
+5. Comparison Operators:
+false
+true
+true
+true
+false
+false
+
+6. Logical Operators:
+false
+true
+false
+
+7. Grouping:
+9
+2
+
+8. Variables:
+42
+test
+true
+
+9. Control Flow:
+if works
+for works
+
+10. Functions:
+function works
+
+=== SCANNER SUCCESS ===
+All token types recognized:
+- Single-char: ( ) { } , . - + ; * /
+- Multi-char: ! != = == > >= < <=
+- Literals: numbers, strings, booleans, nil
+- Keywords: and class else false for fun if nil or
+           print return super this true var while
+- Identifiers: variables and function names
+=== CHAPTER 4: COMPLETE ===
+
+✅ Chapter 4: Scanning PASSED
+
+============================================================
+Testing: Chapter 6: Expressions
+============================================================
+=== CHAPTER 5-6: PARSING EXPRESSIONS ===
+
+1. Literals:
+42
+3.14
+string
+true
+false
+nil
+
+2. Unary Operators:
+-5
+false
+true
+true
+10
+
+3. Arithmetic:
+3
+2
+12
+5
+14
+20
+
+4. Comparisons:
+true
+false
+true
+true
+true
+true
+
+5. String Operations:
+Hello World
+Answer: 42
+
+6. Complex Expressions:
+9
+-5
+10
+1
+
+7. Grouping:
+9
+7
+5
+
+8. Equality:
+true
+true
+true
+true
+true
+true
+
+=== ALL EXPRESSION TESTS PASSED ===
+
+✅ Chapter 6: Expressions PASSED
+
+============================================================
+Testing: Chapter 7: Evaluation
+============================================================
+=== CHAPTER 7: EVALUATING EXPRESSIONS ===
+
+1. Truthiness:
+true
+false
+true
+false
+false
+
+2. Arithmetic Edge Cases:
+0
+0
+0
+0
+-0
+1
+
+3. String Concatenation:
+Hello World!
+Number: 42
+
+4. Comparisons:
+true
+true
+true
+true
+true
+true
+
+5. Boolean Logic (via equality):
+true
+true
+false
+true
+
+6. Mixed Expressions:
+7
+9
+5
+11
+
+7. Nested Operations:
+5
+10
+true
+true
+
+8. Complex Expression:
+13
+
+=== ALL EVALUATION TESTS PASSED ===
+
+✅ Chapter 7: Evaluation PASSED
+
+============================================================
+Testing: Chapter 8: Statements & State
+============================================================
+=== CHAPTER 8: STATEMENTS AND STATE ===
+
+1. Variable Declarations:
+10
+20
+30
+
+2. Variable Assignment:
+5
+10
+
+3. Uninitialized Variables:
+nil
+100
+
+4. Assignment Chains:
+42
+42
+42
+
+5. Block Scopes:
+outer
+inner
+outer
+
+6. Variable Shadowing:
+local
+global
+
+7. Nested Blocks:
+level1
+level2
+level3
+level1
+level2
+level1
+
+8. Assignment to Outer Scope:
+3
+
+9. Multiple Variables in Block:
+6
+
+=== ALL STATEMENT AND STATE TESTS PASSED ===
+
+✅ Chapter 8: Statements & State PASSED
+
+============================================================
+Testing: Chapter 9: Control Flow
+============================================================
+=== CHAPTER 9: CONTROL FLOW ===
+
+1. If Statements:
+true branch executed
+false branch executed
+
+2. If with Conditions:
+x is greater than 5
+x is not less than 5
+
+3. Nested If:
+a > 10
+a <= 20
+
+4. Logical AND:
+true
+false
+false
+false
+
+5. Logical OR:
+true
+true
+true
+false
+
+6. Short-Circuit Evaluation:
+default
+value
+nil
+evaluated
+
+7. While Loops:
+0
+1
+2
+3
+4
+
+8. For Loops:
+0
+1
+2
+3
+4
+
+9. For Loop - No Initializer:
+0
+1
+2
+
+10. For Loop - No Increment:
+0
+1
+2
+
+11. Nested Loops:
+11
+12
+21
+22
+31
+32
+
+12. Complex Conditions:
+val is between 5 and 10
+val is between 5 and 10 (or condition)
+
+13. Loop with Conditional:
+6
+7
+8
+9
+10
+
+=== ALL CONTROL FLOW TESTS PASSED ===
+
+✅ Chapter 9: Control Flow PASSED
+
+============================================================
+Testing: Chapter 10: Functions
+============================================================
+=== CHAPTER 10: FUNCTIONS ===
+
+1. Simple Function:
+Hello, World!
+
+2. Function with Return:
+8
+
+3. Multiple Parameters:
+24
+
+4. No Parameters:
+Hello!
+
+5. Early Return:
+10
+8
+
+6. Recursive Function:
+5
+4
+3
+2
+1
+
+7. Fibonacci:
+0
+1
+1
+2
+3
+5
+8
+13
+
+8. Basic Closure:
+Hi, Alice!
+Hello, Bob!
+
+9. Closure - Counter:
+1
+2
+1
+3
+
+10. Closure - Modifying Captured Variable:
+5
+8
+10
+
+11. Higher-Order Function:
+20
+
+12. Function as Return Value:
+8
+13
+
+13. Nested Closures:
+outer middle inner
+
+14. Function as Value:
+<fn add>
+<fn makeCounter>
+
+15. Native Function:
+<native fn>
+Current time: 
+1762819943.2673101
+
+16. Factorial:
+120
+
+17. Implicit Return Nil:
+No explicit return
+nil
+
+=== ALL FUNCTION TESTS PASSED ===
+
+✅ Chapter 10: Functions PASSED
+
+============================================================
+TEST RESULTS: 6 passed, 0 failed
+============================================================
+ ALL TESTS PASSED! 
+Your Lox interpreter is fully functional!

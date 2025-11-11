@@ -169,7 +169,7 @@ python3 lox.py test/test_chapter4_scanning.lox
 
 ### Run All Tests
 ```bash
-python3 run_test.py
+python3 run_test.py > test_results/comprehensive_test.txt
 ```
 
 ### Run Individual Tests
@@ -180,11 +180,11 @@ python3 lox.py test/test_chapter7_evaluation.lox
 python3 lox.py test/test_chapter8_statements.lox
 python3 lox.py test/test_chapter9_control.lox
 python3 lox.py test/test_chapter10_functions.lox
-python3 lox.py test/quick_sort.lox
-python3 lox.py test/insertion_sort.lox
-python3 lox.py test/merge_sort.lox
-python3 lox.py test/BankAccount.lox
-python3 lox.py test/fib.lox
+python3 lox.py test/quick_sort.lox > test_results/quick_sort_result.txt
+python3 lox.py test/insertion_sort.lox > test_results/insertion_sort_result.txt
+python3 lox.py test/merge_sort.lox > test_results/merge_sort_result.txt
+python3 lox.py test/BankAccount.lox > test_results/BankAccount_result.txt
+python3 lox.py test/fib.lox > test_results/fib_result.txt
 ```
 
 ## Regenerating AST Classes
@@ -195,6 +195,7 @@ python3 GenerateAST.py .
 
 This regenerates `expr.py` and `stmt.py`.
 
+---
 # Conclusion
 
 This project successfully demonstrates a working Lox interpreter with support for:
