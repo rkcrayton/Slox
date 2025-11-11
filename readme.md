@@ -10,7 +10,7 @@
 
 # Overview
 
-This project implements a complete Lox interpreter in Python following "Crafting Interpreters" by Robert Nystrom. The implementation covers Chapters 4-10, building a fully functional, Turing-complete programming language with:
+This project implements a complete Lox interpreter in Python following "Crafting Interpreters" by Robert Nystrom. The implementation covers Chapters 4-10, building a fully functional, Turing complete programming language with:
 
 - **Chapter 4**: Lexical analysis (scanning) - Converting source code into tokens
 - **Chapter 5**: Abstract Syntax Tree (AST) representation of code
@@ -45,7 +45,7 @@ This project implements a complete Lox interpreter in Python following "Crafting
   Recursive descent parser that builds AST from tokens
 
 - **`interpreter.py`**  
-  Tree-walk interpreter that executes the AST
+  Tree walk interpreter that executes the AST
 
 - **`environment.py`**  
   Variable storage with support for nested scopes
@@ -54,10 +54,10 @@ This project implements a complete Lox interpreter in Python following "Crafting
   Abstract interface for callable objects (functions)
 
 - **`lox_function.py`**  
-  User-defined function implementation
+  User defined function implementation
 
 - **`return_exception.py`**  
-  Exception-based control flow for return statements
+  Exception based control flow for return statements
 
 - **`generate_ast.py`**  
   Code generator that creates `expr.py` and `stmt.py` from specifications
@@ -110,7 +110,7 @@ This project implements a complete Lox interpreter in Python following "Crafting
 - **Function declarations**: `fun name(params) { body }`
 - **Function calls**: `function(args)`
 - **Return statements**: `return value;`
-- **First-class functions**: Pass as arguments, return from functions
+- **First class functions**: Pass as arguments, return from functions
 - **Closures**: Functions capture their surrounding scope
 - **Recursion**: Full support for recursive functions
 - **Native functions**: `clock()` returns current timestamp
