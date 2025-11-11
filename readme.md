@@ -198,12 +198,12 @@ This regenerates `expr.py` and `stmt.py`.
 ---
 # Conclusion
 
-This project successfully demonstrates a working Lox interpreter with support for:
+This project successfully demonstrates a working Lox interpreter with support for Chapters 4-10:
 
-**Complete lexical analysis** - All token types recognized  
-**Recursive descent parsing** - Proper precedence and associativity  
-**Expression evaluation** - Arithmetic, logical, and comparison operations  
-**Variables and scoping** - Block scopes with proper environment chains  
-**Control flow** - If/else, while, for, with short-circuit evaluation  
-**Functions** - First-class functions with parameters and returns
-**Error handling** - Graceful error recovery in REPL  
+All test files and results are attached:
+- [comprehensive_test](/test_results/comprehensive_test.txt)
+- [BankAccount_result](/test_results/BankAccount_result.txt)
+- [fib_result](/test_results/fib_result.txt)
+- [insertion_sort_result](/test_results/insertion_sort_result.txt)
+- [merge_sort_result](/test_results/merge_sort_result.txt)
+- [quick_sort_result](/test_results/quick_sort_result.txt)
