@@ -165,7 +165,6 @@ class Parser:
 
         self.consume(TokenType.LEFT_PAREN, "Expect '(' after 'for'.")
 
-        # Initializer
         initializer = None
         if self.match(TokenType.SEMICOLON):
             initializer = None
@@ -174,13 +173,11 @@ class Parser:
         else:
             initializer = self.expression_statement()
 
-        # Condition
         condition = None
         if not self.check(TokenType.SEMICOLON):
             condition = self.expression()
         self.consume(TokenType.SEMICOLON, "Expect ';' after loop condition.")
 
-        # Increment
         increment = None
         if not self.check(TokenType.RIGHT_PAREN):
             increment = self.expression()
@@ -189,18 +186,14 @@ class Parser:
         # Body
         body = self.statement()
 
-        # Desugar: Build the while loop
-        # Add increment to body
         if increment is not None:
             body = Block([body, Expression(increment)])
 
-        # Build while loop
         if condition is None:
             from expr import Literal
             condition = Literal(True)
         body = While(condition, body)
 
-        # Add initializer
         if initializer is not None:
             body = Block([initializer, body])
 
