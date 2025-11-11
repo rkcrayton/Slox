@@ -68,7 +68,6 @@ def main():
 
     if failed == 0:
         print(" ALL TESTS PASSED! ")
-        print("Your Lox interpreter is fully functional!")
         return 0
     else:
         print(f"❌  {failed} test(s) failed")

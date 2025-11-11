@@ -390,7 +390,7 @@ outer middle inner
 15. Native Function:
 <native fn>
 Current time: 
-1762819943.2673101
+1762820566.549902
 
 16. Factorial:
 120
@@ -407,4 +407,3 @@ nil
 TEST RESULTS: 6 passed, 0 failed
 ============================================================
  ALL TESTS PASSED! 
-Your Lox interpreter is fully functional!
