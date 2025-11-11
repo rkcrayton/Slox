@@ -3,12 +3,9 @@
 [Overview](#overview)  
 [Code Structure](#code-structure)  
 [Current Capabilities](#current-capabilities)  
-[Limitations](#limitations)  
-[Syntax](#syntax)  
-[Run and Build](#run-and-build)  
-[Testing](#testing)  
+[Limitations](#limitations)
+[Run and Build](#run-and-build)
 [Conclusion](#conclusion)
-
 ---
 
 # Overview
@@ -22,8 +19,6 @@ This project implements a complete Lox interpreter in Python following "Crafting
 - **Chapter 8**: Variables, assignment, and block scoping
 - **Chapter 9**: Control flow (if/else, while, for loops, logical operators)
 - **Chapter 10**: Functions, closures, and return statements
-
-The interpreter can tokenize source code, parse it into an AST, and execute it with full support for variables, functions, closures, and control flow.
 
 ---
 
@@ -41,10 +36,10 @@ The interpreter can tokenize source code, parse it into an AST, and execute it w
   Lexical analyzer that converts source code into tokens
 
 - **`expr.py`**  
-  Expression AST node classes (Binary, Unary, Literal, Variable, etc.)
+  Expression AST node classes
 
 - **`stmt.py`**  
-  Statement AST node classes (Print, Var, If, While, Function, etc.)
+  Statement AST node classes
 
 - **`parser.py`**  
   Recursive descent parser that builds AST from tokens
@@ -59,7 +54,7 @@ The interpreter can tokenize source code, parse it into an AST, and execute it w
   Abstract interface for callable objects (functions)
 
 - **`lox_function.py`**  
-  User-defined function implementation with closure support
+  User-defined function implementation
 
 - **`return_exception.py`**  
   Exception-based control flow for return statements
@@ -140,107 +135,6 @@ The interpreter can tokenize source code, parse it into an AST, and execute it w
 
 ---
 
-# Syntax
-
-## Variable Declarations
-```lox
-// Declaration with initializer
-var x = 10;
-var message = "hello";
-var truth = true;
-
-// Uninitialized (defaults to nil)
-var y;
-
-// Assignment
-x = 20;
-y = x + 5;
-```
-
-## Control Flow
-
-### If Statements
-```lox
-// Simple if
-if (x > 10) print "large";
-
-// If-else
-if (x > 10) {
-  print "large";
-} else {
-  print "small";
-}
-```
-
-### While Loops
-```lox
-var i = 0;
-while (i < 5) {
-  print i;
-  i = i + 1;
-}
-```
-
-### For Loops
-```lox
-// Standard for loop
-for (var i = 0; i < 5; i = i + 1) {
-  print i;
-}
-```
-
-### Logical Operators
-```lox
-//  AND
-if (x != nil and x > 10) {
-  print "valid and large";
-}
-
-// OR
-var value = input() or "default";
-
-// NOT
-if (!isDone) {
-  print "still working";
-}
-```
-
-## Functions
-
-### Function Declaration
-```lox
-// Function
-fun greet(name) {
-  print "Hello, " + name + "!";
-}
-
-// Function with return
-fun add(a, b) {
-  return a + b;
-}
-
-// Multiple parameters
-fun multiply(a, b, c) {
-  return a * b * c;
-}
-
-// No parameters
-fun sayHello() {
-  print "Hello!";
-}
-```
-
-## Native Functions
-```lox
-// Get current timestamp
-var start = clock();
-// ... do work ...
-var end = clock();
-print "Elapsed: " + (end - start);
-```
-
----
-
 # Run and Build
 
 ## Running the Interpreter
@@ -250,7 +144,7 @@ print "Elapsed: " + (end - start);
 python3 lox.py
 ```
 
-Then type Lox code interactively:
+Then type Lox code :
 ```
 > var x = 10;
 > print x + 5;
@@ -286,6 +180,11 @@ python3 lox.py test/test_chapter7_evaluation.lox
 python3 lox.py test/test_chapter8_statements.lox
 python3 lox.py test/test_chapter9_control.lox
 python3 lox.py test/test_chapter10_functions.lox
+python3 lox.py test/quick_sort.lox
+python3 lox.py test/insertion_sort.lox
+python3 lox.py test/merge_sort.lox
+python3 lox.py test/BankAccount.lox
+python3 lox.py test/fib.lox
 ```
 
 ## Regenerating AST Classes
@@ -300,22 +199,10 @@ This regenerates `expr.py` and `stmt.py`.
 
 This project successfully demonstrates a working Lox interpreter with support for:
 
-✅ **Complete lexical analysis** - All token types recognized  
-✅ **Recursive descent parsing** - Proper precedence and associativity  
-✅ **Expression evaluation** - Arithmetic, logical, and comparison operations  
-✅ **Variables and scoping** - Block scopes with proper environment chains  
-✅ **Control flow** - If/else, while, for, with short-circuit evaluation  
-✅ **Functions** - First-class functions with parameters and returns  
-✅ **Closures** - Functions capture their lexical environment  
-✅ **Recursion** - Full support for recursive algorithms  
-✅ **Error handling** - Graceful error recovery in REPL  
-
-
-## Future Enhancements (Chapters 11-13)
-
-Potential additions to reach 100%:
-- **Chapter 11**: Static variable resolution and semantic analysis
-- **Chapter 12**: Classes, methods, and instances
-- **Chapter 13**: Inheritance and superclasses
-
----
+**Complete lexical analysis** - All token types recognized  
+**Recursive descent parsing** - Proper precedence and associativity  
+**Expression evaluation** - Arithmetic, logical, and comparison operations  
+**Variables and scoping** - Block scopes with proper environment chains  
+**Control flow** - If/else, while, for, with short-circuit evaluation  
+**Functions** - First-class functions with parameters and returns
+**Error handling** - Graceful error recovery in REPL  

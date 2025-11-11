@@ -149,6 +149,3 @@ print arr6;
 print arr7;
 print "";
 
-print "========================================";
-print "COMPLETE - O(n log n) avg, O(n^2) worst";
-print "========================================";

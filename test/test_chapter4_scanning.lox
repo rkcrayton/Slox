@@ -83,7 +83,6 @@ fun testFunction() {
 print testFunction();
 print "";
 
-// Class keyword (won't work yet, but scanner should recognize it)
 // We'll just print that the scanner recognized all tokens
 print "=== SCANNER SUCCESS ===";
 print "All token types recognized:";

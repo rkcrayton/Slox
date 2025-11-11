@@ -249,7 +249,6 @@ class Interpreter(ExprVisitor, StmtVisitor):
 
         if isinstance(obj, float):
             text = str(obj)
-            # Remove trailing .0 for whole numbers
             if text.endswith(".0"):
                 text = text[:-2]
             return text

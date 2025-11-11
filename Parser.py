@@ -95,7 +95,7 @@ class Parser:
 
         if self.match(TokenType.EQUAL):
             equals = self.previous()
-            value = self.assignment()  # Right-associative
+            value = self.assignment()
 
             if isinstance(expr, Variable):
                 name = expr.name

@@ -135,7 +135,6 @@ class Scanner:
         while self.is_digit(self.peek()):
             self.advance()
 
-        # Look for a fractional part.
         if self.peek() == '.' and self.is_digit(self.peek_next()):
             # Consume the "."
             self.advance()

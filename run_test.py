@@ -14,7 +14,6 @@ tests = [
 
 
 def run_test(name, file):
-    """Run a single test file."""
     print(f"\n{'=' * 60}")
     print(f"Testing: {name}")
     print('=' * 60)
@@ -68,11 +67,11 @@ def main():
     print('=' * 60)
 
     if failed == 0:
-        print("🎉 ALL TESTS PASSED! 🎉")
+        print(" ALL TESTS PASSED! ")
         print("Your Lox interpreter is fully functional!")
         return 0
     else:
-        print(f"⚠️  {failed} test(s) failed")
+        print(f"❌  {failed} test(s) failed")
         return 1
 
 

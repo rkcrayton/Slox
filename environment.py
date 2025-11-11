@@ -16,7 +16,6 @@ class Environment:
         if name.lexeme in self.values:
             return self.values[name.lexeme]
 
-        # If not found in this environment, try the enclosing one
         if self.enclosing is not None:
             return self.enclosing.get(name)
 
@@ -27,7 +26,6 @@ class Environment:
             self.values[name.lexeme] = value
             return
 
-        # If not found in this environment, try the enclosing one
         if self.enclosing is not None:
             self.enclosing.assign(name, value)
             return
